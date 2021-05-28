@@ -1,6 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable react/prop-types */
+// @ts-nocheck
+import React, { LegacyRef } from 'react';
 import { Link, SkeletonSprite } from '../../helpers';
 import NavLogo from './NavLogo';
 import SearchBar from '../../search/searchBar/SearchBar';
@@ -8,7 +9,15 @@ import MenuButton from './MenuButton';
 import NavLinks from './NavLinks';
 import './universalNav.css';
 
-export const UniversalNav = ({
+export interface UniversalNavProps {
+  displayMenu?: boolean;
+  fetchState?: { pending: boolean };
+  menuButtonRef?: LegacyRef<HTMLButtonElement> | undefined;
+  searchBarRef?: unknown;
+  toggleDisplayMenu?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  user?: Record<string, unknown>;
+}
+export const UniversalNav: React.FC<UniversalNavProps> = ({
   displayMenu,
   toggleDisplayMenu,
   menuButtonRef,
@@ -62,12 +71,3 @@ export const UniversalNav = ({
 
 UniversalNav.displayName = 'UniversalNav';
 export default UniversalNav;
-
-UniversalNav.propTypes = {
-  displayMenu: PropTypes.bool,
-  fetchState: PropTypes.shape({ pending: PropTypes.bool }),
-  menuButtonRef: PropTypes.object,
-  searchBarRef: PropTypes.object,
-  toggleDisplayMenu: PropTypes.func,
-  user: PropTypes.object
-};

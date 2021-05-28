@@ -1,6 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable react/prop-types */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+// @ts-nocheck
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -12,36 +21,36 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from '../../helpers';
 import { updateUserFlag } from '../../../redux/settings';
-import envData from '../../../../../config/env.json';
+import envData from '../../../../../config/env';
 import createLanguageRedirect from '../../createLanguageRedirect';
 import createExternalRedirect from '../../createExternalRedirects';
-
-const { clientLocale, radioLocation, apiLocation } = envData;
-
-const {
+import {
   availableLangs,
   i18nextCodes,
   langDisplayNames
-} = require('../../../../../config/i18n/all-langs');
+} from '../../../../../config/i18n/all-langs';
+
+const { clientLocale, radioLocation, apiLocation } = envData;
 
 const locales = availableLangs.client;
 
-const propTypes = {
-  displayMenu: PropTypes.bool,
-  fetchState: PropTypes.shape({ pending: PropTypes.bool }),
-  i18n: PropTypes.object,
-  t: PropTypes.func,
-  toggleDisplayMenu: PropTypes.func,
-  toggleNightMode: PropTypes.func.isRequired,
-  user: PropTypes.object
-};
+export interface NavLinksProps {
+  displayMenu?: boolean;
+  fetchState?: { pending: boolean };
+  i18n?: Object;
+  t?: (x: any) => any;
+  toggleDisplayMenu?: React.MouseEventHandler<HTMLButtonElement>;
+  toggleNightMode: (x: any) => any;
+  user?: Record<string, unknown>;
+}
 
 const mapDispatchToProps = {
-  toggleNightMode: theme => updateUserFlag({ theme })
+  toggleNightMode: (theme: unknown) => updateUserFlag({ theme })
 };
 
-export class NavLinks extends Component {
-  toggleTheme(currentTheme = 'default', toggleNightMode) {
+export class NavLinks extends Component<NavLinksProps, {}> {
+  static displayName: string;
+  toggleTheme(currentTheme = 'default', toggleNightMode: any) {
     toggleNightMode(currentTheme === 'night' ? 'default' : 'night');
   }
 
@@ -54,7 +63,7 @@ export class NavLinks extends Component {
       toggleDisplayMenu,
       toggleNightMode,
       user: { isDonating = false, username, theme }
-    } = this.props;
+    }: NavLinksProps = this.props;
 
     const { pending } = fetchState;
     return pending ? (
@@ -68,7 +77,7 @@ export class NavLinks extends Component {
           </div>
         ) : (
           <Link className='nav-link' key='donate' sameTab={false} to='/donate'>
-            {t('buttons.donate')}
+            {t && t('buttons.donate')}
           </Link>
         )}
         {!username && (
@@ -77,11 +86,11 @@ export class NavLinks extends Component {
             href={`${apiLocation}/signin`}
             key='signin'
           >
-            {t('buttons.sign-in')}
+            {t && t('buttons.sign-in')}
           </a>
         )}
         <Link className='nav-link' key='learn' to='/learn'>
-          {t('buttons.curriculum')}
+          {t && t('buttons.curriculum')}
         </Link>
         {username && (
           <Fragment key='profile-settings'>
@@ -99,7 +108,7 @@ export class NavLinks extends Component {
               sameTab={false}
               to={`/settings`}
             >
-              {t('buttons.settings')}
+              {t && t('buttons.settings')}
             </Link>
           </Fragment>
         )}
@@ -131,7 +140,7 @@ export class NavLinks extends Component {
           sameTab={false}
           to={radioLocation}
         >
-          <span>{t('buttons.radio')}</span>
+          <span>{t && t('buttons.radio')}</span>
           <FontAwesomeIcon icon={faExternalLinkAlt} />
         </Link>
         <hr className='nav-line' />
@@ -141,11 +150,11 @@ export class NavLinks extends Component {
           }
           disabled={!username}
           key='theme'
-          onClick={() => this.toggleTheme(theme, toggleNightMode)}
+          onClick={() => this.toggleTheme(String(theme), toggleNightMode)}
         >
           {username ? (
             <>
-              <span>{t('settings.labels.night-mode')}</span>
+              <span>{t && t('settings.labels.night-mode')}</span>
               {theme === 'night' ? (
                 <FontAwesomeIcon icon={faCheckSquare} />
               ) : (
@@ -161,11 +170,11 @@ export class NavLinks extends Component {
         </div>
         {locales.map(lang =>
           // current lang is a button that closes the menu
-          i18n.language === i18nextCodes[lang] ? (
+          i18n && i18n.language === i18nextCodes[lang] ? (
             <button
               className='nav-link nav-link-lang nav-link-flex'
               key={'lang-' + lang}
-              onClick={() => toggleDisplayMenu()}
+              onClick={toggleDisplayMenu}
             >
               <span>{langDisplayNames[lang]}</span>
               <FontAwesomeIcon icon={faCheck} />
@@ -202,7 +211,6 @@ export class NavLinks extends Component {
   }
 }
 
-NavLinks.propTypes = propTypes;
 NavLinks.displayName = 'NavLinks';
 
 export default connect(null, mapDispatchToProps)(withTranslation()(NavLinks));
