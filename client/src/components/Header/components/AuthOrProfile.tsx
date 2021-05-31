@@ -12,7 +12,7 @@ import Login from '../components/Login';
 export interface AuthOrProfileProps {
   user?: Object;
 }
-const AuthOrProfile: React.FC<AuthOrProfileProps> = ({ user }) => {
+const AuthOrProfile = ({ user }: AuthOrProfileProps): JSX.Element => {
   const { t } = useTranslation();
   const isUserDonating = user && user.isDonating;
   const isUserSignedIn = user && user.username;

@@ -27,12 +27,12 @@ export interface LoginProps {
   isSignedIn?: boolean;
 }
 
-const Login: React.FC<LoginProps> = ({
+const Login = ({
   block,
   children,
   'data-test-label': dataTestLabel,
   isSignedIn
-}) => {
+}: LoginProps): JSX.Element => {
   const { t } = useTranslation();
 
   const href = isSignedIn ? `${homeLocation}/learn` : `${apiLocation}/signin`;

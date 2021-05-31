@@ -1,7 +1,7 @@
 import React from 'react';
 import FreeCodeCampLogo from '../../../assets/icons/FreeCodeCampLogo';
 
-const NavLogo: React.FC<unknown> = () => {
+const NavLogo = (): JSX.Element => {
   return <FreeCodeCampLogo />;
 };
 

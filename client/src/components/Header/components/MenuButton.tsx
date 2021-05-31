@@ -12,12 +12,12 @@ export interface MenuButtonProps {
   user?: Object;
 }
 
-const MenuButton: React.FC<MenuButtonProps> = ({
+const MenuButton = ({
   displayMenu,
   innerRef,
   onClick,
   user
-}) => {
+}: MenuButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (

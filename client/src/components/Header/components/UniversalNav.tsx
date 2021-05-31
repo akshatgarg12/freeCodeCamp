@@ -17,14 +17,14 @@ export interface UniversalNavProps {
   toggleDisplayMenu?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   user?: Record<string, unknown>;
 }
-export const UniversalNav: React.FC<UniversalNavProps> = ({
+export const UniversalNav = ({
   displayMenu,
   toggleDisplayMenu,
   menuButtonRef,
   searchBarRef,
   user,
   fetchState
-}) => {
+}: UniversalNavProps): JSX.Element => {
   const { pending } = fetchState;
   return (
     <nav

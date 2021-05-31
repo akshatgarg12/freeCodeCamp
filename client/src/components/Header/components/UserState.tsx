@@ -28,7 +28,7 @@ export interface UserStateProps {
   name?: string;
   showLoading?: boolean;
 }
-const UserState: React.FC<UserStateProps> = props => {
+const UserState = (props: UserStateProps): JSX.Element => {
   const { isSignedIn, showLoading, disableSettings } = props;
   const { t } = useTranslation();
 
