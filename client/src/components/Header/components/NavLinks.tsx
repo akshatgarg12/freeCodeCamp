@@ -21,7 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from '../../helpers';
 import { updateUserFlag } from '../../../redux/settings';
-import envData from '../../../../../config/env';
+import envData from '../../../../../config/env.json';
 import createLanguageRedirect from '../../createLanguageRedirect';
 import createExternalRedirect from '../../createExternalRedirects';
 import {
@@ -37,8 +37,8 @@ const locales = availableLangs.client;
 export interface NavLinksProps {
   displayMenu?: boolean;
   fetchState?: { pending: boolean };
-  i18n?: Object;
-  t?: (x: any) => any;
+  i18n: Object;
+  t: (x: any) => any;
   toggleDisplayMenu?: React.MouseEventHandler<HTMLButtonElement>;
   toggleNightMode: (x: any) => any;
   user?: Record<string, unknown>;
@@ -77,7 +77,7 @@ export class NavLinks extends Component<NavLinksProps, {}> {
           </div>
         ) : (
           <Link className='nav-link' key='donate' sameTab={false} to='/donate'>
-            {t && t('buttons.donate')}
+            {t('buttons.donate')}
           </Link>
         )}
         {!username && (
@@ -86,11 +86,11 @@ export class NavLinks extends Component<NavLinksProps, {}> {
             href={`${apiLocation}/signin`}
             key='signin'
           >
-            {t && t('buttons.sign-in')}
+            {t('buttons.sign-in')}
           </a>
         )}
         <Link className='nav-link' key='learn' to='/learn'>
-          {t && t('buttons.curriculum')}
+          {t('buttons.curriculum')}
         </Link>
         {username && (
           <Fragment key='profile-settings'>
@@ -108,7 +108,7 @@ export class NavLinks extends Component<NavLinksProps, {}> {
               sameTab={false}
               to={`/settings`}
             >
-              {t && t('buttons.settings')}
+              {t('buttons.settings')}
             </Link>
           </Fragment>
         )}
@@ -140,7 +140,7 @@ export class NavLinks extends Component<NavLinksProps, {}> {
           sameTab={false}
           to={radioLocation}
         >
-          <span>{t && t('buttons.radio')}</span>
+          <span>{t('buttons.radio')}</span>
           <FontAwesomeIcon icon={faExternalLinkAlt} />
         </Link>
         <hr className='nav-line' />
@@ -154,7 +154,7 @@ export class NavLinks extends Component<NavLinksProps, {}> {
         >
           {username ? (
             <>
-              <span>{t && t('settings.labels.night-mode')}</span>
+              <span>{t('settings.labels.night-mode')}</span>
               {theme === 'night' ? (
                 <FontAwesomeIcon icon={faCheckSquare} />
               ) : (
@@ -170,7 +170,7 @@ export class NavLinks extends Component<NavLinksProps, {}> {
         </div>
         {locales.map(lang =>
           // current lang is a button that closes the menu
-          i18n && i18n.language === i18nextCodes[lang] ? (
+          i18n.language === i18nextCodes[lang] ? (
             <button
               className='nav-link nav-link-lang nav-link-flex'
               key={'lang-' + lang}

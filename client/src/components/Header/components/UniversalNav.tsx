@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react/prop-types */
 // @ts-nocheck
-import React, { LegacyRef } from 'react';
+import React, { Ref } from 'react';
 import { Link, SkeletonSprite } from '../../helpers';
 import NavLogo from './NavLogo';
 import SearchBar from '../../search/searchBar/SearchBar';
@@ -12,7 +12,7 @@ import './universalNav.css';
 export interface UniversalNavProps {
   displayMenu?: boolean;
   fetchState?: { pending: boolean };
-  menuButtonRef?: LegacyRef<HTMLButtonElement> | undefined;
+  menuButtonRef?: Ref<HTMLButtonElement> | undefined;
   searchBarRef?: unknown;
   toggleDisplayMenu?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   user?: Record<string, unknown>;
